@@ -45,6 +45,35 @@ public class TwoStack {
         //Loop over the tokens until you reach the end of the expression
         //TODO
 
+        for (String token : tokens) {
+            if (token.equals("(")) {
+                continue;
+            } else if (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")) {
+
+                ops.push(token);
+            } else if (token.equals(")")) {
+                // Perform calculation
+                if (!ops.isEmpty() && vals.size() >= 2) {
+                    String op = ops.pop();
+                    double val2 = vals.pop();  // Second operand
+                    double val1 = vals.pop();  // First operand
+
+                    double result = 0;
+                    switch (op) {
+                        case "+": result = val1 + val2; break;
+                        case "-": result = val1 - val2; break;
+                        case "*": result = val1 * val2; break;
+                        case "/": result = val1 / val2; break;
+                        default: throw new IllegalArgumentException("Invalid operator: " + op);
+                    }
+
+                    vals.push(result);
+                }
+            } else {
+
+                vals.push(Double.parseDouble(token));
+            }
+        }
         
 
 
